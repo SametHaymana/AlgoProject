@@ -42,7 +42,7 @@ public class Generator{
 
         for (int i = 0; i < lessons.length; i++) {
             String data = s.nextLine();
-            lessons[i]=new Lesson(rand.nextInt(6), data, (rand.nextInt(10)<2 ? false:true), i, rand.nextInt(4)+1, department.departmentCode);
+            lessons[i]=new Lesson(3+rand.nextInt(3), data, (rand.nextInt(10)<2 ? false:true), i, rand.nextInt(4)+1, department.departmentCode);
             System.out.println(lessons[i].toString());
         }
 
