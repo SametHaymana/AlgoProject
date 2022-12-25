@@ -14,9 +14,9 @@ public class AlgoProject {
 
     public static void main(String[] args) throws FileNotFoundException {
         //line below generates departments and lessons
-        //Generator.generate();
+        Generator.generate();
         //line below generates students
-        //Generator.generateStudents();
+        Generator.generateStudents();
         System.out.println("kadir dğeişiklik sorun oldu mu??");
     }
 }
