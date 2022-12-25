@@ -12,5 +12,6 @@ public class AlgoProject {
 
     public static void main(String[] args) {
         System.out.println("Hello World!");
+        System.out.println("Naber kadir");
     }
 }
