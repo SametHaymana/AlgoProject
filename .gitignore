@@ -1,0 +1,5 @@
+
+target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+target/test-classes/.netbeans_automatic_build
+*.lst
+target/classes/.netbeans_automatic_build
