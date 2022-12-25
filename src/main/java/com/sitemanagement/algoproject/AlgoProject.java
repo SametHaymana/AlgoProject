@@ -4,14 +4,18 @@
 
 package com.sitemanagement.algoproject;
 
+import java.io.FileNotFoundException;
+
 /**
  *
  * @author tomahawk
  */
 public class AlgoProject {
 
-    public static void main(String[] args) {
-        System.out.println("Hello World!");
-        System.out.println("Naber kadir");
+    public static void main(String[] args) throws FileNotFoundException {
+        //line below generates departments and lessons
+        Generator.generate();
+        //line below generates students
+        Generator.generateStudents();
     }
 }
