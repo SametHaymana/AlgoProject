@@ -3,16 +3,18 @@ import java.io.FileNotFoundException;
 import java.util.Random;
 import java.util.Scanner;
 public class Generator{
+    private static Faculty faculty=new Faculty("Faculty of Engineering");
+
     public static Faculty generate() throws FileNotFoundException{
         //generating faculty
-        Faculty faculty=new Faculty("Faculty of Engineering");
+        
         //generating departments
         Department[] departments=new Department[6]; 
         departments[0]=new Department("Computer Engineering", 1);
         departments[1]=new Department("Civil Engineering", 2);
         departments[2]=new Department("Mechanical Engineering", 3);
         departments[3]=new Department("Electric Electronic", 4);
-        departments[4]=new Department("Industry Engineering", 5);
+        departments[4]=new Department("Industrial Engineering", 5);
         departments[5]=new Department("Energy Systems Engineering", 6);
 
         //generating lessons for each department
@@ -20,8 +22,10 @@ public class Generator{
         for (Department department : departments) {
             department.lessons= generateLessons(department);
         }
+        
+        faculty.departments=departments;
 
-        return null;
+        return faculty;
     }
 
     //generating lessons for each department
@@ -36,15 +40,36 @@ public class Generator{
 
         for (int i = 0; i < lessons.length; i++) {
             String data = s.nextLine();
-            lessons[i]=new Lesson(rand.nextInt(5)+1, data, (rand.nextInt(10)<2 ? false:true), i, rand.nextInt(4)+1, department.departmentCode);
+            lessons[i]=new Lesson(rand.nextInt(3,6), data, (rand.nextInt(10)<2 ? false:true), i, rand.nextInt(4)+1, department.departmentCode);
             System.out.println(lessons[i].toString());
         }
+
+        s.close();
         return lessons;
     }
 
 
     //generating students
-    
+    public static void generateStudents(){
+        for (Department department : Faculty.departments) {
+            Random rand = new Random();
+            //generating 200 students for each department
+            for (int i = 0; i < 200; i++) {
+                Student student=new Student("Student "+i, (i/50)+1, department.departmentCode);
+                //enrolling them to lessons
+                for(int x=0;x<rand.nextInt(5)+1;x++){
+                    
+                }
+            }
+        }
+
+    }
+
+    private void enroller(){
+
+    }
+
+
 
     /*
     private static void Maincode_student_creating(LinkedList<Studentaaa> Students) {

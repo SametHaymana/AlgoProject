@@ -13,7 +13,7 @@ public class Lesson {
         this.AKTS = AKTS;
         this.name = name;
         this.isMandatory = isMandatory;
-        this.lessonCode = lessonCode;
+        this.lessonCode = Integer.parseInt(""+departmentCode+classN+lessonCode);
         this.classN = classN;
         this.departmentCode = departmentCode;
     }
@@ -28,10 +28,6 @@ public class Lesson {
             isFull=true;
             return false;
         }
-    }
-    public int getLessonCode() {
-        String code=""+departmentCode+classN+lessonCode;
-        return Integer.parseInt(code);
     }
     //writing to string
     public String toString() {
