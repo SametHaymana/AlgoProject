@@ -80,6 +80,10 @@ public class Generator{
             a++;
         }
     } 
+    /*
+    public static void generateLecturer(){
+        
+    }
 
     /*
     private static void Maincode_student_creating(LinkedList<Studentaaa> Students) {
