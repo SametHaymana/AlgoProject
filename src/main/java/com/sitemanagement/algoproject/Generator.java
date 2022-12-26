@@ -50,7 +50,7 @@ public class Generator{
         return lessons;
     }
 
-
+    
     //generating students
     public static void generateStudents(){
         for (Department department : Faculty.departments) {
@@ -71,7 +71,15 @@ public class Generator{
 
     }
 
-
+    public static void generateClassroom(){
+        for (int i = 0; i <= 2; i++) {
+           char a='A';
+            for (int j = 2; j < 10; j++) {
+                Classrooms clsr = new Classrooms(a,j,a+String.valueOf(j),50);
+            }
+            a++;
+        }
+    } 
 
     /*
     private static void Maincode_student_creating(LinkedList<Studentaaa> Students) {

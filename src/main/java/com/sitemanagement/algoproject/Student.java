@@ -15,4 +15,9 @@ public class Student {
         count++;
         this.departmentCode = departmentCode;
     }
+
+    @Override
+    public String toString() {
+        return "Name=" + name + ", Number=" + number + ", ClassN=" + classN + ", DepartmentCode=" + departmentCode + ", NumberOfLessonsFromAbove=" + numberOfLessonsFromAbove + ", NumberOfLessonsFromBelow=" + numberOfLessonsFromBelow ;
+    }
 }

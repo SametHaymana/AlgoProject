@@ -17,6 +17,6 @@ public class AlgoProject {
         Generator.generate();
         //line below generates students
         Generator.generateStudents();
-        System.out.println("kadir dğeişiklik sorun oldu mu??");
+        
     }
 }
