@@ -70,14 +70,14 @@ public class Generator{
                 Student student=new Student("Student "+i, (i/50)+1, department.departmentCode);
                 
                 //enrolling students to their own lessons randomly around 5 to 7
-                for(int x=0;x<rand.nextInt(6,9);x++){
+                for(int x=0;x<5+rand.nextInt(3);x++){
                     enroller(department, student);
                 }
 
                 //enrollling students to other departments lessons randomly around 0 to 2 to simulate ORTAK DERSLER :)
-                for(int x=0;x<rand.nextInt(0,3);x++){
+                for(int x=0;x<rand.nextInt(3);x++){
                     //randomly choosing a different department from faculty and enrolling student to it
-                    Department dep=Faculty.departments[rand.nextInt(0, Faculty.departments.length)];
+                    Department dep=Faculty.departments[rand.nextInt(Faculty.departments.length)];
                     if(dep.departmentCode!=department.departmentCode){
                         enroller(dep, student);
                     }
@@ -90,7 +90,7 @@ public class Generator{
     //this method randolmly chooses one lesson from department and enrolls student to it
     private static  void enroller(Department dep, Student student){
         Random rand = new Random();
-        int lessonIndex=rand.nextInt(0, dep.lessons.length);
+        int lessonIndex=rand.nextInt(dep.lessons.length);
         Lesson lesson=dep.lessons[lessonIndex];
         lesson.enroll(student);
         student.enroll(lesson);
@@ -98,14 +98,15 @@ public class Generator{
     }
 
     public static void generateClassroom(){
+        char a='A';
         for (int i = 0; i <= 2; i++) {
-           char a='A';
             for (int j = 2; j < 10; j++) {
                 Classrooms clsr = new Classrooms(a,j,a+String.valueOf(j),50);
+                System.out.println(""+clsr.id);
             }
             a++;
         }
-    } 
+    }
 
     /*
     private static void Maincode_student_creating(LinkedList<Studentaaa> Students) {
