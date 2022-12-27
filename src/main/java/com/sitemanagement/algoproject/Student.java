@@ -6,8 +6,10 @@ public class Student {
     int number;
     int classN;
     int departmentCode;
-    int numberOfLessonsFromAbove = 0;
-    int numberOfLessonsFromBelow = 0;
+    int numberOfLessons = 0;
+    //array for lessons taken by student
+    Lesson[] lessonsTaken=new Lesson[30];
+
     public Student(String name, int classN, int departmentCode) {
         this.name = name;
         this.number = count;
@@ -15,9 +17,14 @@ public class Student {
         count++;
         this.departmentCode = departmentCode;
     }
-
+    //student enrollment method
+    public void enroll(Lesson lesson){
+            lessonsTaken[numberOfLessons]=lesson;
+            numberOfLessons++;
+    }
     @Override
     public String toString() {
-        return "Name=" + name + ", Number=" + number + ", ClassN=" + classN + ", DepartmentCode=" + departmentCode + ", NumberOfLessonsFromAbove=" + numberOfLessonsFromAbove + ", NumberOfLessonsFromBelow=" + numberOfLessonsFromBelow ;
+        return "Student [name=" + name + ", number=" + number + ", classN=" + classN + ", departmentCode=" + departmentCode
+                + ", numberOfLessons=" + numberOfLessons + "]";    
     }
 }

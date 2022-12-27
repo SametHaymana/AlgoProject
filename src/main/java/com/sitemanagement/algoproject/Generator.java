@@ -5,10 +5,11 @@ import java.io.FileNotFoundException;
 import java.util.Random;
 import java.util.Scanner;
 public class Generator{
+    //generating faculty
     private static Faculty faculty=new Faculty("Faculty of Engineering");
 
     public static Faculty generate() throws FileNotFoundException{
-        //generating faculty
+        
         
         //generating departments
         Department[] departments=new Department[6]; 
@@ -39,9 +40,16 @@ public class Generator{
         File myObj = new File(department.name+".txt");
         Scanner s = new Scanner(myObj);
 
-
-        for (int i = 0; i < lessons.length; i++) {
+        for (int i = 0; i < 24; i++) {
             String data = s.nextLine();
+
+            lessons[i]=new Lesson(3+rand.nextInt(3), data, (rand.nextInt(10)<2 ? false:true), i, (i/6)+1, department.departmentCode);
+            System.out.println(lessons[i].toString());
+        }
+
+        for (int i = 0; i < 6; i++) {
+            String data = s.nextLine();
+
             lessons[i]=new Lesson(3+rand.nextInt(3), data, (rand.nextInt(10)<2 ? false:true), i, rand.nextInt(4)+1, department.departmentCode);
             System.out.println(lessons[i].toString());
         }
@@ -56,18 +64,36 @@ public class Generator{
         for (Department department : Faculty.departments) {
             Random rand = new Random();
             //generating 200 students for each department
+
             for (int i = 0; i < 200; i++) {
+                //TODO:Buraya student name generator implemente edilecek!!
                 Student student=new Student("Student "+i, (i/50)+1, department.departmentCode);
-                //enrolling them to lessons
-                for(int x=0;x<rand.nextInt(5)+1;x++){
-                    
+                
+                //enrolling students to their own lessons randomly around 5 to 7
+                for(int x=0;x<rand.nextInt(6,9);x++){
+                    enroller(department, student);
                 }
+
+                //enrollling students to other departments lessons randomly around 0 to 2 to simulate ORTAK DERSLER :)
+                for(int x=0;x<rand.nextInt(0,3);x++){
+                    //randomly choosing a different department from faculty and enrolling student to it
+                    Department dep=Faculty.departments[rand.nextInt(0, Faculty.departments.length)];
+                    if(dep.departmentCode!=department.departmentCode){
+                        enroller(dep, student);
+                    }
+                }
+                //TODO: Buraya yukarıdan veya aşağıdan eklenecek ders sayısını belirleyecek bir random variable yazılacak
             }
         }
 
     }
-
-    private void enroller(){
+    //this method randolmly chooses one lesson from department and enrolls student to it
+    private static  void enroller(Department dep, Student student){
+        Random rand = new Random();
+        int lessonIndex=rand.nextInt(0, dep.lessons.length);
+        Lesson lesson=dep.lessons[lessonIndex];
+        lesson.enroll(student);
+        student.enroll(lesson);
 
     }
 
@@ -80,10 +106,6 @@ public class Generator{
             a++;
         }
     } 
-    /*
-    public static void generateLecturer(){
-        
-    }
 
     /*
     private static void Maincode_student_creating(LinkedList<Studentaaa> Students) {

@@ -10,7 +10,8 @@ public class Lesson {
     int lessonCode;
     int classN;
     int departmentCode;
-
+    //student array that hold enrolled students
+    Student[] enrolledStudents=new Student[enrollmentLimit];
     public Lesson(int AKTS, String name, Boolean isMandatory, int lessonCode, int classN, int departmentCode) {
         this.AKTS = AKTS;
         this.name = name;
@@ -21,16 +22,26 @@ public class Lesson {
     }
 
     //returns true if enrollment is succsessful
-    public boolean enrollment_isFull(){
-        if(enrollmentCount<enrollmentLimit){
-            isFull=false;
+    public void enroll(Student std){
+        if(AvailableForEnrollment()){
+            //adding student to enrolled students array
+            enrolledStudents[enrollmentCount]=std;
+            //increasing enrollment count
             enrollmentCount++;
-            return true;
         }else{
             isFull=true;
+        }
+    }
+
+    //method for enrollment availability
+    public boolean AvailableForEnrollment(){
+        if(enrollmentCount<=enrollmentLimit && isFull != false){
+            return true;
+        }else{
             return false;
         }
     }
+
     //writing to string
     public String toString() {
         return "Lesson [AKTS=" + AKTS + ", name=" + name + ", enrollmentLimit=" + enrollmentLimit + ", enrollmentCount="
