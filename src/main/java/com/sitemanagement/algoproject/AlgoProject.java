@@ -16,6 +16,7 @@ public class AlgoProject {
         //line below generates departments and lessons
         Generator.generate();
         //line below generates students
+        Generator.generateClassroom();
         Generator.generateStudents();
         
     }

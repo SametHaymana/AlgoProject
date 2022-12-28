@@ -35,7 +35,7 @@ public class Lesson {
 
     //method for enrollment availability
     public boolean AvailableForEnrollment(){
-        if(enrollmentCount<=enrollmentLimit && isFull != false){
+        if(enrollmentCount<=enrollmentLimit-1 && isFull != false){
             return true;
         }else{
             return false;

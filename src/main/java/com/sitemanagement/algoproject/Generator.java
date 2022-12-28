@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class Generator{
     //generating faculty
     private static Faculty faculty=new Faculty("Faculty of Engineering");
-
+    
     public static Faculty generate() throws FileNotFoundException{
         
         
@@ -47,7 +47,7 @@ public class Generator{
             System.out.println(lessons[i].toString());
         }
 
-        for (int i = 0; i < 6; i++) {
+        for (int i = 24; i < 30; i++) {
             String data = s.nextLine();
 
             lessons[i]=new Lesson(3+rand.nextInt(3), data, (rand.nextInt(10)<2 ? false:true), i, rand.nextInt(4)+1, department.departmentCode);
@@ -60,7 +60,8 @@ public class Generator{
 
     
     //generating students
-    public static void generateStudents(){
+    public static void generateStudents() throws FileNotFoundException{
+        
         for (Department department : Faculty.departments) {
             Random rand = new Random();
             //generating 200 students for each department
@@ -90,8 +91,9 @@ public class Generator{
     //this method randolmly chooses one lesson from department and enrolls student to it
     private static  void enroller(Department dep, Student student){
         Random rand = new Random();
-        int lessonIndex=rand.nextInt(dep.lessons.length);
-        Lesson lesson=dep.lessons[lessonIndex];
+        int lessonIndex=rand.nextInt(dep.lessons.length-1);
+        Lesson lesson= dep.lessons[lessonIndex];
+        System.out.println(lesson.name);
         lesson.enroll(student);
         student.enroll(lesson);
 
@@ -101,8 +103,10 @@ public class Generator{
         char a='A';
         for (int i = 0; i <= 2; i++) {
             for (int j = 2; j < 10; j++) {
+                //a+String.valueOf(j) is for decleare ıd
                 Classrooms clsr = new Classrooms(a,j,a+String.valueOf(j),50);
                 System.out.println(""+clsr.id);
+                System.out.println(clsr.Seatlimit);
             }
             a++;
         }
