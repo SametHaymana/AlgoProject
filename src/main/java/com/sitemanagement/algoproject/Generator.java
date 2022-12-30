@@ -86,8 +86,8 @@ public class Generator{
                 //TODO: Buraya yukarıdan veya aşağıdan eklenecek ders sayısını belirleyecek bir random variable yazılacak
             }
         }
-
     }
+    
     //this method randolmly chooses one lesson from department and enrolls student to it
     private static  void enroller(Department dep, Student student){
         Random rand = new Random();

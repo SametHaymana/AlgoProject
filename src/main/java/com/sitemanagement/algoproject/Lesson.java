@@ -1,6 +1,7 @@
 package com.sitemanagement.algoproject;
 
 public class Lesson {
+    
     int AKTS;
     String name;
     int enrollmentLimit=50;
