@@ -1,12 +1,19 @@
 package com.sitemanagement.algoproject;
 
 public class Department {
-    String name;
-    int departmentCode;
-    int numberOfEnrolledStudents=0;
-    Lesson[] lessons=new Lesson[30];
+    
+    
+    private String name;
+    
+    private int departmentCode;
+    private int numberOfEnrolledStudents;
+    public Lesson[] lessons;
+    
+    
     public Department(String name, int departmentCode) {
         this.name = name;
         this.departmentCode = departmentCode;
+        this.numberOfEnrolledStudents = 0;
+        this.lessons = new Lesson[30];
     }
 }

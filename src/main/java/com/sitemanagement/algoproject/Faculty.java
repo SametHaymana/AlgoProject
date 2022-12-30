@@ -1,9 +1,14 @@
 package com.sitemanagement.algoproject;
 
+
 public class Faculty {
-    String name;
-    static Department[] departments=new Department[6];
+    
+    private String name;
+    
+    public  Department[] departments;
+    
     public Faculty(String name) {
         this.name = name;
+        this.departments = new Department[6];
     }
 }

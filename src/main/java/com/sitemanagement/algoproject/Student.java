@@ -1,30 +1,82 @@
 package com.sitemanagement.algoproject;
 
-public class Student {
-    public static int count = 0;
-    String name;
-    int number;
-    int classN;
-    int departmentCode;
-    int numberOfLessons = 0;
-    //array for lessons taken by student
-    Lesson[] lessonsTaken=new Lesson[30];
+import java.util.ArrayList;
 
-    public Student(String name, int classN, int departmentCode) {
+public class Student {
+    
+    
+    private static int MIN_SAME_YEAR_LECTURES = 6;
+    private static int MAX_UPPER_YEAR_LECTURE = 3;
+    private static int MAX_LOWER_YEAR_LECTURE = 3;
+    private static int MAX_AKTS = 30;
+    
+    
+    
+    private String name;
+    private String surname;
+    private int id;
+    private int classYear;
+    private int departmentCode;
+    private int akts;
+    private ArrayList<Lesson> enrolledLessons;
+    public int countOftermCourse;
+    public int countOfUpperTermCourse;
+    public int countOfLowerTermCourse;
+    
+    
+  
+
+    public Student(int id, String name, String surname, int classYear, int departmentCode) {
+        this.id = id;
         this.name = name;
-        this.number = count;
-        this.classN = classN;
-        count++;
+        this.surname = surname;
+        this.classYear = classYear;
         this.departmentCode = departmentCode;
+        
+        this.akts = 0;
+        countOftermCourse= 0;
+        countOfUpperTermCourse = 0;
+        countOfLowerTermCourse= 0;
     }
-    //student enrollment method
-    public void enroll(Lesson lesson){
-            lessonsTaken[numberOfLessons]=lesson;
-            numberOfLessons++;
+    
+    
+    /**
+     *
+     * @param lesson
+     * @return
+     */
+    public boolean enroll(Lesson lesson){
+        /* if he has akts to enroll */
+        if(this.akts + lesson.getAkts() < MAX_AKTS  && this.enrolledLessons.size() <= 6 && this.isEligable(lesson)){
+
+            // Student can enroll the class
+            this.enrolledLessons.add(lesson);
+            this.akts += lesson.getAkts();
+            return true;
+        }
+        return false;
     }
+    
+    
+    private boolean isEligable(Lesson lesson){  
+        // Same year lesson
+        if(lesson.getClassYear() == this.classYear && this.countOftermCourse > MIN_SAME_YEAR_LECTURES)
+            return true;
+        
+        if(lesson.getClassYear() > this.classYear && this.countOfUpperTermCourse < MAX_UPPER_YEAR_LECTURE)
+            return true;
+        
+        if(lesson.getClassYear() < this.classYear && this.countOfLowerTermCourse < MAX_LOWER_YEAR_LECTURE)
+            return true;
+        
+        return false;
+        
+    }
+   
+    
     @Override
     public String toString() {
-        return "Student [name=" + name + ", number=" + number + ", classN=" + classN + ", departmentCode=" + departmentCode
-                + ", numberOfLessons=" + numberOfLessons + "]";    
+        return "Student [name=" + name + ", number=" + id + ", classN=" + this.classYear + ", departmentCode=" + departmentCode
+                + ", numberOfLessons=" + this.enrolledLessons.size() + "]";    
     }
 }
