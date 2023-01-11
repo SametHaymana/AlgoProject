@@ -1,6 +1,7 @@
-package com.sitemanagement.algoproject;
+package Objects;
 
 
+import Objects.Student;
 import java.util.ArrayList;
 
 public class Lesson {
@@ -17,6 +18,9 @@ public class Lesson {
     
     private  boolean isMandatory;
     
+    public Lesson(String name){
+        this.LectureName = name;
+    }
     
     public Lesson(int akts, String name, Boolean isMandatory, int lessonCode, int classN, int depertmentCode){
         this.akts = akts;

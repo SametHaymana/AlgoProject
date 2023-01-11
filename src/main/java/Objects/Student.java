@@ -1,4 +1,4 @@
-package com.sitemanagement.algoproject;
+package Objects;
 
 import java.util.ArrayList;
 

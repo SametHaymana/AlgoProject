@@ -1,6 +1,8 @@
-package com.sitemanagement.algoproject;
+package Objects;
 
+import Objects.Lesson;
 import java.util.ArrayList;
+
 
 
 public class Lecturer {

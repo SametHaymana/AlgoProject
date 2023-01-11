@@ -13,11 +13,8 @@ import java.io.FileNotFoundException;
 public class AlgoProject {
 
     public static void main(String[] args) throws FileNotFoundException {
-        //line below generates departments and lessons
-        Generator.generate();
-        //line below generates students
-        Generator.generateClassroom();
-        Generator.generateStudents();
+        Randomizer randomize = new Randomizer();
+        
         
     }
 }
