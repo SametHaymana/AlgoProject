@@ -8,12 +8,12 @@ public class Department {
     
     private String name;
     
-    private int departmentCode;
+    private String departmentCode;
     private int numberOfEnrolledStudents;
     private ArrayList<Lesson> lessons;
     
     
-    public Department(String name, int departmentCode) {
+    public Department(String name, String departmentCode) {
         this.name = name;
         this.departmentCode = departmentCode;
         this.numberOfEnrolledStudents = 0;
@@ -26,5 +26,13 @@ public class Department {
     
     public ArrayList<Lesson> getLessons(){
         return this.lessons;
+    }
+    
+    public String getDepartmentCode(){
+        return this.departmentCode;
+    }
+    
+    public String getName(){
+        return this.name;
     }
 }

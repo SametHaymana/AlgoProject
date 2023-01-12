@@ -8,6 +8,7 @@ package com.sitemanagement.algoproject;
 import java.util.*;
 import java.io.*;
 import Objects.*;
+import java.util.stream.Collectors;
 
 
 
@@ -21,10 +22,11 @@ public class Randomizer {
     
     public Randomizer() throws FileNotFoundException, Exception{
         this.generateDepertments();
+        this.randomizeStudents();
         
     }
     
-    
+
     private void generateDepertments() throws FileNotFoundException, Exception{
         /*
             Depertments name is storing in the "Dataset" directory as its name of depertments,
@@ -45,7 +47,13 @@ public class Randomizer {
             String depertmentName = depertmentFiles[i].split("\\.")[0];
             
             // Create depertment object
-            Department dep = new Department(depertmentName, i);
+            
+            // depertment code is starting char of each word in the depertment name
+            String depertmentCode = Arrays.stream(depertmentName.split(" "))
+                              .map(s -> s.substring(0, 1))
+                              .collect(Collectors.joining()).toUpperCase();
+            
+            Department dep = new Department(depertmentName, depertmentCode);
             
             // Add lessosn with reading files
             
@@ -53,8 +61,29 @@ public class Randomizer {
             
             Scanner scanner = new Scanner(depertmentFile);
             
+            Random rand = new Random();
             while(scanner.hasNextLine()){
-                dep.addLesson(new Lesson(scanner.nextLine()));
+                // inceramet value
+                int j = 0;
+                
+                // Add random information to lessons
+                
+                // Akts will be betwen 3 - 5
+                int akts = 3 + rand.nextInt(2);
+                String name = scanner.nextLine();
+                
+                // Creating classN is the year of lecture it will be 1-4
+                int classN = rand.nextInt(3) + 1;   // it is betwen 0-3 so add 1 
+                
+                // Lesson code is simple code that will assignet for each unique lessons
+                String lesssonCode = depertmentCode + classN + "0" + j++ ; 
+                
+                // Randomly make it mondotary of not
+                Boolean isMandotary = rand.nextInt(99999) % 2 == 0 ? Boolean.TRUE : Boolean.FALSE;
+                
+                dep.addLesson(new Lesson(akts, name, isMandotary, lesssonCode, classN, depertmentCode));
+                
+                j++;
             }
             
             scanner.close();
@@ -102,13 +131,46 @@ public class Randomizer {
         // Load names ass array for accesing random names in instend time
         ArrayList<String> names = this.readLines(new File("names.txt"));
         
+        Random rand = new Random();
         
         // Iterate throught depertments
+
         for (Department dp : faculty.getDepartments()){
             
             
             // for each depertment will add 200 students
             for(int i=0 ; i< 200 ; i++){
+                
+                
+                // Generate random user information
+                
+                // Random name and surname
+                String name = names.get(rand.nextInt(faculty.getDepartments().size() ));
+                String surname = names.get(rand.nextInt(faculty.getDepartments().size() ));
+                
+                int classYear = rand.nextInt(4) + 1;
+
+                
+                Student student = new Student(i, name, surname, classYear, dp.getDepartmentCode());
+                
+                // Select random lesson
+                
+                Lesson randLesson = dp.getLessons().get(rand.nextInt(dp.getLessons().size() -1 ));
+                
+                
+                // enroll lesson for student to the limit
+                while(student.enroll(randLesson)){
+                    // Add enrolled list to also lesson
+                    randLesson.enroll(student);
+                    
+                    // Get another random lesson
+                    randLesson = dp.getLessons().get(rand.nextInt(dp.getLessons().size() -1 ));
+                    
+                }
+                
+                
+
+                
                 
             }
             

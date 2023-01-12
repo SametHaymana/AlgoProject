@@ -16,7 +16,7 @@ public class Student {
     private String surname;
     private int id;
     private int classYear;
-    private int departmentCode;
+    private String departmentCode;
     private int akts;
     private ArrayList<Lesson> enrolledLessons;
     public int countOftermCourse;
@@ -26,12 +26,14 @@ public class Student {
     
   
 
-    public Student(int id, String name, String surname, int classYear, int departmentCode) {
+    public Student(int id, String name, String surname, int classYear, String departmentCode) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.classYear = classYear;
         this.departmentCode = departmentCode;
+        
+        this.enrolledLessons = new ArrayList<>();
         
         this.akts = 0;
         countOftermCourse= 0;
@@ -76,7 +78,7 @@ public class Student {
     
     @Override
     public String toString() {
-        return "Student [name=" + name + ", number=" + id + ", classN=" + this.classYear + ", departmentCode=" + departmentCode
+        return "Student [name=" + name + " Surname="+ surname +" , number=" + id + ", classN=" + this.classYear + ", departmentCode=" + departmentCode
                 + ", numberOfLessons=" + this.enrolledLessons.size() + "]";    
     }
 }
