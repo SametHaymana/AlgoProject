@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Lesson {
     
-    private static int EnrollmentLimit = 15;
+    private static int EnrollmentLimit = 50;
     
     private int akts;
     private String LectureName;

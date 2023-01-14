@@ -18,13 +18,18 @@ public class AlgoProject {
         
         for(Department dp : randomize.faculty.getDepartments()){
             System.out.println("---------- " + dp.getName()+ " -----------" );
+            randomize.schedule= new Lesson[22][5];
             for(Lesson ls : dp.getLessons()){
-                System.out.println("------------ Lesson --------------");
-                System.out.println(ls.toString() );
-                System.out.println("------------ Students --------------");
-                for(Student st : ls.getStudents()){
-                    System.out.println(st.toString());
-                }
+                randomize.lessonSchedule(ls);
+                
+                
+//                System.out.println("------------ Lesson --------------");
+//                System.out.println(ls.toString() );
+                
+//                System.out.println("------------ Students --------------");
+//                for(Student st : ls.getStudents()){
+//                    System.out.println(st.toString());
+//                }
 
 
             }
