@@ -15,21 +15,24 @@ public class Lesson {
     private int classYear;
     private String departmentCode;
     private ArrayList<Student> enrolledStudents;
-    
     private  boolean isMandatory;
-    
+    private  Lecturer lecturer;
+    public String roomCode;
+    private String date;
     public Lesson(String name){
         this.LectureName = name;
     }
     
-    public Lesson(int akts, String name, Boolean isMandatory, String lessonCode, int classN, String depertmentCode){
+    public Lesson(int akts, String name, Boolean isMandatory, String lessonCode, int classN, String depertmentCode, Lecturer lecturer, String roomCode, String date){
         this.akts = akts;
         this.LectureName = name;
         this.lessonCode = lessonCode;
         this.classYear = classN;
         this.departmentCode = depertmentCode;
-        
         this.enrolledStudents = new ArrayList<>();
+        this.lecturer = lecturer;
+        this.roomCode = roomCode;
+        this.date = date;
     } 
     
     
@@ -55,6 +58,9 @@ public class Lesson {
         
     }
     
+    public void setLecturer(Lecturer lectr) {
+        this.lecturer = lectr;
+    }
     
     
     public int getAkts(){return this.akts;}
@@ -72,6 +78,6 @@ public class Lesson {
     public String toString() {
         return "Lesson [AKTS=" + akts + ", name=" + LectureName + ", enrollmentLimit=" + EnrollmentLimit + ", enrollmentCount="
                 + this.enrolledStudents.size()  + ", isFull=" + !isAvaliableChair() + ", isMandatory=" + isMandatory + ", lessonCode=" + lessonCode
-                + ", classN=" + classYear + ", departmentCode=" + departmentCode + "]";
+                + ", classN=" + classYear + ", departmentCode=" + departmentCode + ", lecturer=" + lecturer + ", class=" + roomCode + ", date=" + date +"]";
     }
 }

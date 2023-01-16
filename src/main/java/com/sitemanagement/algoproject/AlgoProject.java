@@ -19,6 +19,7 @@ public class AlgoProject {
         for(Department dp : randomize.faculty.getDepartments()){
             System.out.println("---------- " + dp.getName()+ " -----------" );
             randomize.schedule= new Lesson[22][5];
+            randomize.generateClasses();
             for(Lesson ls : dp.getLessons()){
                 randomize.lessonSchedule(ls);
                 

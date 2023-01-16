@@ -15,14 +15,40 @@ public class Randomizer {
         This class will create a faculty and fill the faculty with random students, LEssons, Lecturers 
      */
     public Faculty faculty = new Faculty("Faculty of Engineering");
-    Lesson[][] schedule = new Lesson[22][5];
-
+    Lesson[][] schedule = new Lesson[23][5];
+    Classrooms[] rooms = new Classrooms[15];
+    Lecturer[] lecturers = new Lecturer[180];
+    int classCount;
     public Randomizer() throws FileNotFoundException, Exception {
         this.generateDepertments();
         this.randomizeStudents();
+        this.generateClasses();
 
     }
-
+    public void generateClasses() {
+     int pin = 0;
+         char a  = 'A';
+     for(int i = 0; i<3; i++) {
+         for(int j = pin; j<pin + 5; j++) {
+             rooms[j] = new Classrooms(a, j,a + String.valueOf(j), 50);   
+             System.out.println(rooms[j]);
+         }
+         pin += 5;
+         a++;
+     }   
+    }
+    public int checkRoom(int d, int h, int akts) {
+        for(int i = 0; i<rooms.length; i++) {
+            if(rooms[i].availableHours[h][d] == 0) {
+                for(int j = h; j<akts + h; j++) {
+                    if(j + akts > 22) break; 
+                    rooms[i].availableHours[j][d] = 1;
+                }
+                return i;
+            }
+        }
+        return 1;
+    }
     private void generateDepertments() throws FileNotFoundException, Exception {
         /*
             Depertments name is storing in the "Dataset" directory as its name of depertments,
@@ -73,7 +99,7 @@ public class Randomizer {
                 // Randomly make it mondotary of not
                 Boolean isMandotary = rand.nextInt(99999) % 2 == 0 ? Boolean.TRUE : Boolean.FALSE;
 
-                dep.addLesson(new Lesson(akts, name, isMandotary, lesssonCode, classN, depertmentCode));
+                dep.addLesson(new Lesson(akts, name, isMandotary, lesssonCode, classN, depertmentCode, null, null, null));
 
                 j++;
             }
@@ -107,7 +133,19 @@ public class Randomizer {
         return result;
 
     }
-
+    private void assignLecturers() {
+        for(Department dp : faculty.getDepartments()) {
+            for(int i = 0; i<dp.getLessons().size(); i++) {
+                Lesson lesson = dp.getLessons().get(i);
+                lesson.setLecturer(lecturers[i]);
+            }
+        }
+    }
+    
+    private void generateLecturers() {
+        
+    }
+    
     private void randomizeStudents() throws FileNotFoundException {
         /*
             This function fill created depertments with random sutudents
@@ -130,14 +168,13 @@ public class Randomizer {
                 // Random name and surname
                 String name = names.get(rand.nextInt(88000));
                 String surname = names.get(rand.nextInt(88000));
-
-                int classYear = rand.nextInt(4) + 1;
-
+               
+                int classYear = (i % 50) + 1;
+                    
                 Student student = new Student(i, name, surname, classYear, dp.getDepartmentCode());
 
                 // Select random lesson
                 Lesson randLesson = dp.getLessons().get(rand.nextInt(dp.getLessons().size() - 1));
-
                 // enroll lesson for student to the limit
                 while (student.enroll(randLesson)) {
                     // Add enrolled list to also lesson
@@ -190,18 +227,23 @@ public class Randomizer {
                     minute = "30";
                 }
                 hour = 8 + (hours / 2);
+               // int roomIndex = checkRoom(day, hours, lesson.getAkts());
+                //lesson.roomCode = rooms[roomIndex].id;
+
                 if (lesson.getAkts() == 3 && schedule[hours][day] == null && schedule[hours + 1][day] == null) {
+                   
                     schedule[hours][day] = lesson;
-                    schedule[hours + 1][day] = lesson;
+                    schedule[hours + 1][day] = lesson;   
+                  //  schedule[hours + 2][day] = lesson;
                     System.out.println(lessonDay + "   " + hour + ":" + minute);
                     System.out.println(schedule[hours][day]);
                     System.out.println(schedule[hours + 1][day]);
-
                     return;
                 } else if (lesson.getAkts() == 4 && schedule[hours][day] == null && schedule[hours + 2][day] == null) {
                     schedule[hours][day] = lesson;
                     schedule[hours + 1][day] = lesson;
                     schedule[hours + 2][day] = lesson;
+       //             schedule[hours + 3][day] = lesson;
                     System.out.println(lessonDay + "   " + hour + ":" + minute);
                     System.out.println(schedule[hours][day]);
                     System.out.println(schedule[hours + 2][day]);
@@ -211,12 +253,12 @@ public class Randomizer {
                     schedule[hours + 1][day] = lesson;
                     schedule[hours + 2][day] = lesson;
                     schedule[hours + 3][day] = lesson;
+//                    schedule[hours + 4][day] = lesson;
                     System.out.println(lessonDay + "   " + hour + ":" + minute);
                     System.out.println(schedule[hours][day]);
                     System.out.println(schedule[hours + 3][day]);
                     return;
                 }
-
             }
         }
 

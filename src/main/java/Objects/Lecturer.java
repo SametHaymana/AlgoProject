@@ -14,12 +14,7 @@ public class Lecturer {
     private String name ;
     private String surname;
     private boolean[] avaliableWeekDays ;
-    
     private ArrayList<Lesson> lessons;
-    
-    
-    
-    
     
     public Lecturer(int id, String Name, String Surname){
         this.id = id;
@@ -29,8 +24,6 @@ public class Lecturer {
         this.avaliableWeekDays = new boolean[5];
         this.lessons = new ArrayList<>();
     }
-    
-    
     
     /*
      *
