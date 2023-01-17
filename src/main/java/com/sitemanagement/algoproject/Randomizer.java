@@ -10,46 +10,68 @@ import Objects.*;
 import java.util.stream.Collectors;
 
 public class Randomizer {
+    //this number shows how many teachers will set freedays
+
+    private static int lecturersCount = 60;
 
     /*
         This class will create a faculty and fill the faculty with random students, LEssons, Lecturers 
      */
     public Faculty faculty = new Faculty("Faculty of Engineering");
     Lesson[][] schedule = new Lesson[23][5];
-    Classrooms[] rooms = new Classrooms[15];
+    Classrooms[] rooms = new Classrooms[25];
     Lecturer[] lecturers = new Lecturer[180];
+
     int classCount;
+
     public Randomizer() throws FileNotFoundException, Exception {
         this.generateDepertments();
         this.randomizeStudents();
         this.generateClasses();
-        
 
     }
-    public void generateClasses() {
-     int pin = 0;
-         char a  = 'A';
-     for(int i = 0; i<3; i++) {
-         for(int j = pin; j<pin + 5; j++) {
-             rooms[j] = new Classrooms(a, j,a + String.valueOf(j), 50);   
-             System.out.println(rooms[j]);
-         }
-         pin += 5;
-         a++;
-     }   
+
+    private void generateExtraClasses() {
+        Random rand = new Random();
+        char b = 'B';
+
+        for (int i = 15; i < 20; i++) {
+            rooms[i] = new Classrooms(b, i, b + String.valueOf(i), 50);
+        }
     }
-    public int checkRoom(int d, int h, int akts) {
-        for(int i = 0; i<rooms.length; i++) {
-            if(rooms[i].availableHours[h][d] == 0) {
-                for(int j = h; j<akts + h; j++) {
-                    if(j + akts > 22) break; 
-                    rooms[i].availableHours[j][d] = 1;
-                }
-                return i;
+
+    public void generateClasses() {
+        int pin = 0;
+        char a = 'A';
+        for (int i = 0; i < 3; i++) {
+            for (int j = pin; j < pin + 5; j++) {
+                rooms[j] = new Classrooms(a, j, a + String.valueOf(j), 50);
+                System.out.println(rooms[j]);
+            }
+            pin += 5;
+            a++;
+        }
+    }
+
+    // I check room to place lesson
+    public boolean checkRoom(Classrooms room, int d, int h, int akts) {
+        //I initialize the flag because we should know how many hours available
+        //if flag-1 == akts we return true
+        //flag-1 because we assume for 3 akts our lecture time 1 hour so 2 unit
+        int flag = 0;
+        for (int i = 0; i < akts; i++) {
+            if (room.availableHours[h][d] == 0) {
+                flag++;
             }
         }
-        return 1;
+        if (flag-1 == akts) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
+
     private void generateDepertments() throws FileNotFoundException, Exception {
         /*
             Depertments name is storing in the "Dataset" directory as its name of depertments,
@@ -134,28 +156,42 @@ public class Randomizer {
         return result;
 
     }
-    
-    public void generateRandomLecturers() throws FileNotFoundException {
-        int id =0;
+
+    public void generateRandomLecturers() throws FileNotFoundException, Exception {
+        int id = 0;
         //I read from names.txt
         ArrayList<String> lecturerName = this.readLines(new File("names.txt"));
         Random rand = new Random();
         //We create numberofDepartments * lessonNumber lecturer
-        for(Department dp : faculty.getDepartments()) {
-            for(int i = 0; i<dp.getLessons().size(); i++) {
+        for (Department dp : faculty.getDepartments()) {
+            for (int i = 0; i < dp.getLessons().size(); i++) {
                 id++;
                 String lecturerNames = lecturerName.get(rand.nextInt(75000));
                 String lecturerSurname = lecturerName.get(rand.nextInt(75000));
-                Lecturer lecturer = new Lecturer(id,lecturerNames,lecturerSurname);
+                Lecturer lecturer = new Lecturer(id, lecturerNames, lecturerSurname);
                 Lesson lesson = dp.getLessons().get(i);
                 lesson.setLecturer(lecturer);
-                System.out.println("");
-                
+
             }
         }
-        
+
     }
-    
+
+    //we can initialize with give lecturer abject and days or we can use generateLecturerFreeDaysRandomly() function to generate randomly
+    public void generateLecturerFreeDays(Lecturer lecturer, int day) throws Exception {
+        lecturer.setFreeDay(day);
+    }
+
+    public void generateLecturerFreeDaysRandomly() throws Exception {
+        Random rand = new Random();
+        int day = rand.nextInt(5);
+        for (int i = 0; i < lecturersCount; i++) {
+            int lecurersIndex = rand.nextInt(180);
+            lecturers[lecurersIndex].setFreeDay(day);
+        }
+
+    }
+
     private void randomizeStudents() throws FileNotFoundException {
         /*
             This function fill created depertments with random sutudents
@@ -176,9 +212,9 @@ public class Randomizer {
                 // Random name and surname
                 String name = names.get(rand.nextInt(88000));
                 String surname = names.get(rand.nextInt(88000));
-               
+
                 int classYear = (i % 50) + 1;
-                    
+
                 Student student = new Student(i, name, surname, classYear, dp.getDepartmentCode());
 
                 // Select random lesson
@@ -208,68 +244,82 @@ public class Randomizer {
         String lessonDay = "";
         int hour = 0;
         String minute = "";
+        for (int i = 0; i < rooms.length; i++) {
 
-        for (int hours = 0; hours < 22; hours++) {
-            for (int day = 0; day < 5; day++) {
-                switch (day) {
-                    case 0:
-                        lessonDay = "Monday";
-                        break;
-                    case 1:
-                        lessonDay = "Tuesday";
-                        break;
-                    case 2:
-                        lessonDay = "Wednesday";
-                        break;
-                    case 3:
-                        lessonDay = "Thursday";
-                        break;
-                    case 4:
-                        lessonDay = "Friday";
-                        break;
-                }
+            for (int hours = 0; hours < 22; hours++) {
+                for (int day = 0; day < 5; day++) {
+                    switch (day) {
+                        case 0:
+                            lessonDay = "Monday";
+                            break;
+                        case 1:
+                            lessonDay = "Tuesday";
+                            break;
+                        case 2:
+                            lessonDay = "Wednesday";
+                            break;
+                        case 3:
+                            lessonDay = "Thursday";
+                            break;
+                        case 4:
+                            lessonDay = "Friday";
+                            break;
+                    }
 
-                if (hours % 2 == 0) {
-                    minute = "00";
-                } else {
-                    minute = "30";
-                }
-                hour = 8 + (hours / 2);
-               // int roomIndex = checkRoom(day, hours, lesson.getAkts());
-                //lesson.roomCode = rooms[roomIndex].id;
+                    if (hours % 2 == 0) {
+                        minute = "00";
+                    } else {
+                        minute = "30";
+                    }
+                    hour = 8 + (hours / 2);
+                    // int roomIndex = checkRoom(day, hours, lesson.getAkts());
+                    //lesson.roomCode = rooms[roomIndex].id;
+                    if (checkRoom(rooms[i], day, hours, lesson.getAkts())) {
 
-                if (lesson.getAkts() == 3 && schedule[hours][day] == null && schedule[hours + 1][day] == null) {
-                   
-                    schedule[hours][day] = lesson;
-                    schedule[hours + 1][day] = lesson;   
-                  //  schedule[hours + 2][day] = lesson;
-                    System.out.println(lessonDay + "   " + hour + ":" + minute);
-                    System.out.println(schedule[hours][day]);
-                    System.out.println(schedule[hours + 1][day]);
-                    return;
-                } else if (lesson.getAkts() == 4 && schedule[hours][day] == null && schedule[hours + 2][day] == null) {
-                    schedule[hours][day] = lesson;
-                    schedule[hours + 1][day] = lesson;
-                    schedule[hours + 2][day] = lesson;
-       //             schedule[hours + 3][day] = lesson;
-                    System.out.println(lessonDay + "   " + hour + ":" + minute);
-                    System.out.println(schedule[hours][day]);
-                    System.out.println(schedule[hours + 2][day]);
-                    return;
-                } else if (lesson.getAkts() == 5 && schedule[hours][day] == null && schedule[hours + 3][day] == null) {
-                    schedule[hours][day] = lesson;
-                    schedule[hours + 1][day] = lesson;
-                    schedule[hours + 2][day] = lesson;
-                    schedule[hours + 3][day] = lesson;
+                        if (lesson.getAkts() == 3 && schedule[hours][day] == null && schedule[hours + 1][day] == null) {
+                            rooms[i].availableHours[hours][day]=1;
+                            rooms[i].availableHours[hours+1][day]=1;
+                            schedule[hours][day] = lesson;
+                            schedule[hours + 1][day] = lesson;
+                            //  schedule[hours + 2][day] = lesson;
+                            System.out.println(lessonDay + "   " + hour + ":" + minute);
+                            System.out.println(schedule[hours][day]);
+                            System.out.println(schedule[hours + 1][day]);
+                            return;
+                        } else if (lesson.getAkts() == 4 && schedule[hours][day] == null && schedule[hours + 2][day] == null) {
+                            rooms[i].availableHours[hours][day]=1;
+                            rooms[i].availableHours[hours+1][day]=1;
+                            rooms[i].availableHours[hours+2][day]=1;
+                            
+                            schedule[hours][day] = lesson;
+                            schedule[hours + 1][day] = lesson;
+                            schedule[hours + 2][day] = lesson;
+                            //             schedule[hours + 3][day] = lesson;
+                            System.out.println(lessonDay + "   " + hour + ":" + minute);
+                            System.out.println(schedule[hours][day]);
+                            System.out.println(schedule[hours + 2][day]);
+                            return;
+                        } else if (lesson.getAkts() == 5 && schedule[hours][day] == null && schedule[hours + 3][day] == null) {
+                            rooms[i].availableHours[hours][day]=1;
+                            rooms[i].availableHours[hours+1][day]=1;
+                            rooms[i].availableHours[hours+2][day]=1;
+                            rooms[i].availableHours[hours+3][day]=1;
+                            schedule[hours][day] = lesson;
+                            schedule[hours + 1][day] = lesson;
+                            schedule[hours + 2][day] = lesson;
+                            schedule[hours + 3][day] = lesson;
 //                    schedule[hours + 4][day] = lesson;
-                    System.out.println(lessonDay + "   " + hour + ":" + minute);
-                    System.out.println(schedule[hours][day]);
-                    System.out.println(schedule[hours + 3][day]);
-                    return;
+                            System.out.println(lessonDay + "   " + hour + ":" + minute);
+                            System.out.println(schedule[hours][day]);
+                            System.out.println(schedule[hours + 3][day]);
+                            return;
+                        }
+                    }
+
                 }
             }
-        }
 
+        }
     }
 
 }

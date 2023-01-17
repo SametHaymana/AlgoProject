@@ -25,7 +25,7 @@ public class AlgoProject {
                 randomize.lessonSchedule(ls);
 //                System.out.println("------------ Lesson --------------");
 //                System.out.println(ls.toString() );
-                
+//                
 //                System.out.println("------------ Students --------------");
 //                for(Student st : ls.getStudents()){
 //                    System.out.println(st.toString());
