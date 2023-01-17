@@ -24,6 +24,18 @@ public class Lecturer {
         this.avaliableWeekDays = new boolean[5];
         this.lessons = new ArrayList<>();
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public int getId() {
+        return id;
+    }
     
     /*
      *

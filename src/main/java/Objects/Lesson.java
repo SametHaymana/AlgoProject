@@ -76,8 +76,9 @@ public class Lesson {
     
     @Override
     public String toString() {
-        return "Lesson [AKTS=" + akts + ", name=" + LectureName + ", enrollmentLimit=" + EnrollmentLimit + ", enrollmentCount="
-                + this.enrolledStudents.size()  + ", isFull=" + !isAvaliableChair() + ", isMandatory=" + isMandatory + ", lessonCode=" + lessonCode
-                + ", classN=" + classYear + ", departmentCode=" + departmentCode + ", lecturer=" + lecturer + ", class=" + roomCode + ", date=" + date +"]";
+        return "Lesson [AKTS = " + akts + ", name = " + LectureName + ", enrollmentLimit = " + EnrollmentLimit + ", enrollmentCount = "
+                + this.enrolledStudents.size()  + ", isFull = " + !isAvaliableChair() + ", isMandatory = " + isMandatory + ", lessonCode = " + lessonCode
+                + ", classN = " + classYear + ", departmentCode = " + departmentCode + ", lecturer Name = " + lecturer.getName()+", lecturer Surname = "
+                +lecturer.getSurname()+", lecturer ıd = "+lecturer.getId()+ ", class = " + roomCode + ", date=" + date +"]";
     }
 }

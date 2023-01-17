@@ -134,23 +134,16 @@ public class Randomizer {
         return result;
 
     }
-    private void assignLecturers() {
-        for(Department dp : faculty.getDepartments()) {
-            for(int i = 0; i<dp.getLessons().size(); i++) {
-                Lesson lesson = dp.getLessons().get(i);
-                lesson.setLecturer(lecturers[i]);
-            }
-        }
-    }
     
     public void generateRandomLecturers() throws FileNotFoundException {
-        
+        int id =0;
+        //I read from names.txt
         ArrayList<String> lecturerName = this.readLines(new File("names.txt"));
         Random rand = new Random();
-        
+        //We create numberofDepartments * lessonNumber lecturer
         for(Department dp : faculty.getDepartments()) {
             for(int i = 0; i<dp.getLessons().size(); i++) {
-                int id = i;
+                id++;
                 String lecturerNames = lecturerName.get(rand.nextInt(75000));
                 String lecturerSurname = lecturerName.get(rand.nextInt(75000));
                 Lecturer lecturer = new Lecturer(id,lecturerNames,lecturerSurname);
