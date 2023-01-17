@@ -23,6 +23,7 @@ public class Randomizer {
         this.generateDepertments();
         this.randomizeStudents();
         this.generateClasses();
+        
 
     }
     public void generateClasses() {
@@ -142,15 +143,29 @@ public class Randomizer {
         }
     }
     
-    private void generateLecturers() {
+    public void generateRandomLecturers() throws FileNotFoundException {
+        
+        ArrayList<String> lecturerName = this.readLines(new File("names.txt"));
+        Random rand = new Random();
+        
+        for(Department dp : faculty.getDepartments()) {
+            for(int i = 0; i<dp.getLessons().size(); i++) {
+                int id = i;
+                String lecturerNames = lecturerName.get(rand.nextInt(75000));
+                String lecturerSurname = lecturerName.get(rand.nextInt(75000));
+                Lecturer lecturer = new Lecturer(id,lecturerNames,lecturerSurname);
+                Lesson lesson = dp.getLessons().get(i);
+                lesson.setLecturer(lecturer);
+                System.out.println("");
+                
+            }
+        }
         
     }
     
     private void randomizeStudents() throws FileNotFoundException {
         /*
             This function fill created depertments with random sutudents
-        
-        
          */
 
         // Load names ass array for accesing random names in instend time

@@ -15,15 +15,13 @@ public class AlgoProject {
 
     public static void main(String[] args) throws FileNotFoundException, Exception {
         Randomizer randomize = new Randomizer();
-        
+        randomize.generateRandomLecturers();
         for(Department dp : randomize.faculty.getDepartments()){
             System.out.println("---------- " + dp.getName()+ " -----------" );
             randomize.schedule= new Lesson[22][5];
             randomize.generateClasses();
             for(Lesson ls : dp.getLessons()){
                 randomize.lessonSchedule(ls);
-                
-                
 //                System.out.println("------------ Lesson --------------");
 //                System.out.println(ls.toString() );
                 
