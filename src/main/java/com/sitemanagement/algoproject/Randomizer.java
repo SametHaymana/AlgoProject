@@ -245,7 +245,6 @@ public class Randomizer {
         int hour = 0;
         String minute = "";
         for (int i = 0; i < rooms.length; i++) {
-
             for (int hours = 0; hours < 22; hours++) {
                 for (int day = 0; day < 5; day++) {
                     switch (day) {
@@ -318,7 +317,6 @@ public class Randomizer {
 
                 }
             }
-
         }
     }
 

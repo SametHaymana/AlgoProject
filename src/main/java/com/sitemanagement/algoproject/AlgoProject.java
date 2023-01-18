@@ -14,10 +14,13 @@ import Objects.*;
 public class AlgoProject {
 
     public static void main(String[] args) throws FileNotFoundException, Exception {
-        Randomizer randomize = new Randomizer();
-        MyRandomizer rand = new MyRandomizer();
-        rand.generateClasses();
-        rand.generateDepertments();
+        Randomom random = new Randomom();
+        random.generateDepertments();
+        random.displaySchedule();
+//        Randomizer randomize = new Randomizer();
+//        MyRandomizer rand = new MyRandomizer();
+//        rand.generateClasses();
+//        rand.generateDepertments();
 //        randomize.generateRandomLecturers();
 //        randomize.generateClasses();
 //        for(Department dp : randomize.faculty.getDepartments()){

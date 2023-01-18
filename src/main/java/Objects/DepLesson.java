@@ -1,12 +1,21 @@
 package Objects;
 
 
+import Objects.Lecturer;
 import Objects.Student;
 import java.util.ArrayList;
 
-public class Lesson {
-    
-    private static int EnrollmentLimit = 50;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+
+/**
+ *
+ * @author hasaneke
+ */
+public class DepLesson {
+      private static int EnrollmentLimit = 50;
     
     private int akts;
     private String LectureName;
@@ -18,12 +27,14 @@ public class Lesson {
     private  boolean isMandatory;
     private  Lecturer lecturer;
     public String roomCode;
-    private String date;
-    public Lesson(String name){
+    private double start;
+    private double end;
+    private String day;
+    public DepLesson(String name){
         this.LectureName = name;
     }
     
-    public Lesson(int akts, String name, Boolean isMandatory, String lessonCode, int classN, String depertmentCode, Lecturer lecturer, String roomCode, String date){
+    public DepLesson(int akts, String name, Boolean isMandatory, String lessonCode, int classN, String depertmentCode, Lecturer lecturer, String roomCode, double start, double end, String day){
         this.akts = akts;
         this.LectureName = name;
         this.lessonCode = lessonCode;
@@ -32,7 +43,9 @@ public class Lesson {
         this.enrolledStudents = new ArrayList<>();
         this.lecturer = lecturer;
         this.roomCode = roomCode;
-        this.date = date;
+        this.start = start;
+        this.end = end;
+        this.day = day;
     } 
     
     
@@ -76,6 +89,6 @@ public class Lesson {
         return "Lesson [AKTS = " + akts + ", name = " + LectureName + ", enrollmentLimit = " + EnrollmentLimit + ", enrollmentCount = "
                 + this.enrolledStudents.size()  + ", isFull = " + !isAvaliableChair() + ", isMandatory = " + isMandatory + ", lessonCode = " + lessonCode
                 + ", classN = " + classYear + ", departmentCode = " + departmentCode + ", lecturer Name = " + lecturer.getName()+", lecturer Surname = "
-                +lecturer.getSurname()+", lecturer ıd = "+lecturer.getId()+ ", class = " + roomCode + ", date=" + date +"]";
+                +lecturer.getSurname()+", lecturer ıd = "+lecturer.getId()+ ", class = " + roomCode + ", day= " +day+", start=" + start + ", end" + end +"]";
     }
 }

@@ -112,7 +112,6 @@ public class MyRandomizer {
         }
 
         return result;
-
     }
 
     public void generateRandomLecturers() throws FileNotFoundException, Exception {

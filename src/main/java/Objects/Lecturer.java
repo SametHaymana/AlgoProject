@@ -20,7 +20,6 @@ public class Lecturer {
         this.id = id;
         this.name = Name;
         this.surname = Surname;
-        
         this.avaliableWeekDays = new boolean[5];
         this.lessons = new ArrayList<>();
     }
@@ -54,9 +53,7 @@ public class Lecturer {
        this.avaliableWeekDays[dayNumber] = false;
         
     }
-    
-    
-    
+
     /*
     *   Set All day as working
     */
