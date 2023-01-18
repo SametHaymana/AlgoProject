@@ -19,10 +19,10 @@ public class AlgoProject {
         int k = 0;
         int classroomcount=15;
         Random rand = new Random();
-        Classrooms[] rooms = new Classrooms[15];
+
         Randomizer randomize = new Randomizer();
         randomize.generateRandomLecturers();
-        rooms = randomize.generateClasses();
+        randomize.generateClasses();
   
         for (Department dp : randomize.faculty.getDepartments()) {
             System.out.println("---------- " + dp.getName() + " -----------");

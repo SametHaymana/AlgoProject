@@ -16,7 +16,7 @@ public class Randomizer {
 
     /*
      * This class will create a faculty and fill the faculty with random students,
-     * LEssons, Lecturers
+     * Lessons, Lecturers
      */
     public Faculty faculty = new Faculty("Faculty of Engineering");
 
