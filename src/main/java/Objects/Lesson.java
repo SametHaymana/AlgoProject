@@ -34,6 +34,14 @@ public class Lesson {
         this.roomCode = roomCode;
         this.date = date;
     } 
+
+    public void setRoomCode(String roomCode) {
+        this.roomCode = roomCode;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
     
     
 

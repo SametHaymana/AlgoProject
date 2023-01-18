@@ -40,7 +40,7 @@ public class Randomizer {
         }
     }
 
-    public void generateClasses() {
+    public Classrooms[] generateClasses() {
         int pin = 0;
         char a = 'A';
         for (int i = 0; i < 3; i++) {
@@ -51,6 +51,7 @@ public class Randomizer {
             pin += 5;
             a++;
         }
+        return rooms;
     }
 
     // I check room to place lesson
@@ -59,17 +60,21 @@ public class Randomizer {
         //if flag-1 == akts we return true
         //flag-1 because we assume for 3 akts our lecture time 1 hour so 2 unit
         int flag = 0;
-        for (int i = 0; i < akts; i++) {
+        if (h<17) {
+            for (int i = 0; i < akts; i++) {
             if (room.availableHours[h][d] == 0) {
                 flag++;
             }
+            h++;
         }
-        if (flag-1 == akts) {
+        if (flag == akts) {
             return true;
         } else {
             return false;
         }
-
+        }
+        
+        return false;
     }
 
     private void generateDepertments() throws FileNotFoundException, Exception {
@@ -235,7 +240,7 @@ public class Randomizer {
 
     }
 
-    public void lessonSchedule(Lesson lesson) {
+    public void lessonSchedule(Lesson lesson,Classrooms room) {
         /*
         3 AKTS = 1 Hour
         4 AKTS = 1.5 Hour
@@ -273,7 +278,7 @@ public class Randomizer {
                     hour = 8 + (hours / 2);
                     // int roomIndex = checkRoom(day, hours, lesson.getAkts());
                     //lesson.roomCode = rooms[roomIndex].id;
-                    if (checkRoom(rooms[i], day, hours, lesson.getAkts())) {
+                    if (checkRoom(room, day, hours, lesson.getAkts())) {
 
                         if (lesson.getAkts() == 3 && schedule[hours][day] == null && schedule[hours + 1][day] == null) {
                             rooms[i].availableHours[hours][day]=1;
@@ -281,6 +286,8 @@ public class Randomizer {
                             schedule[hours][day] = lesson;
                             schedule[hours + 1][day] = lesson;
                             //  schedule[hours + 2][day] = lesson;
+                            lesson.setRoomCode(room.id);
+                            lesson.setDate(lessonDay + "   " + hour + ":" + minute);
                             System.out.println(lessonDay + "   " + hour + ":" + minute);
                             System.out.println(schedule[hours][day]);
                             System.out.println(schedule[hours + 1][day]);
@@ -295,6 +302,8 @@ public class Randomizer {
                             schedule[hours + 2][day] = lesson;
                             //             schedule[hours + 3][day] = lesson;
                             System.out.println(lessonDay + "   " + hour + ":" + minute);
+                            lesson.setRoomCode(room.id);
+                            lesson.setDate(lessonDay + "   " + hour + ":" + minute);
                             System.out.println(schedule[hours][day]);
                             System.out.println(schedule[hours + 2][day]);
                             return;
@@ -309,14 +318,18 @@ public class Randomizer {
                             schedule[hours + 3][day] = lesson;
 //                    schedule[hours + 4][day] = lesson;
                             System.out.println(lessonDay + "   " + hour + ":" + minute);
+                            lesson.setRoomCode(room.id);
+                            lesson.setDate(lessonDay + "   " + hour + ":" + minute);
                             System.out.println(schedule[hours][day]);
                             System.out.println(schedule[hours + 3][day]);
                             return;
                         }
+                        
                     }
 
                 }
             }
+            return;
         }
     }
 
