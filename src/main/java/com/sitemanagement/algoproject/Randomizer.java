@@ -291,9 +291,6 @@ public class Randomizer {
                     hour = 8 + (hours / 2);
                     // int roomIndex = checkRoom(day, hours, lesson.getAkts());
                     // lesson.roomCode = rooms[roomIndex].id;
-                    if(i==5){
-                        int bok=0; // XD
-                    }
                     if (checkRoom(rooms[i], day, hours, lesson.getAkts(),lesson)) {
 
                         if (lesson.getAkts() == 3 && rooms[i].availableHours[hours][day] == 0 && rooms[i].availableHours[hours + 1][day] == 0) {
@@ -311,10 +308,12 @@ public class Randomizer {
                             rooms[i].availableHours[hours + 1][day] = 1;
                             rooms[i].availableHours[hours + 2][day] = 1;
                             // schedule[hours + 3][day] = lesson;
-                            System.out.println(lessonDay + "   " + hour + ":" + minute);
-                            System.out.println(lesson.toString());
                             lesson.setRoomCode(rooms[i].id);
                             lesson.setDate(lessonDay + "   " + hour + ":" + minute);
+                            System.out.println(lessonDay + "   " + hour + ":" + minute);
+                            System.out.println(lesson.toString());
+                            
+                            
                             return;
                         } else if (lesson.getAkts() == 5 && rooms[i].availableHours[hours][day] == 0
                                 && rooms[i].availableHours[hours + 3][day] == 0) {
@@ -324,10 +323,11 @@ public class Randomizer {
                             rooms[i].availableHours[hours + 3][day] = 1;
                             // schedule[hours + 4][day] = lesson;
                             //writing information about lesson and its time
-                            System.out.println(lessonDay + "   " + hour + ":" + minute);
-                            System.out.println(lesson.toString());
                             lesson.setRoomCode(rooms[i].id);
                             lesson.setDate(lessonDay + "   " + hour + ":" + minute);
+                            System.out.println(lessonDay + "   " + hour + ":" + minute);
+                            System.out.println(lesson.toString());
+                            
                             return;
                         }
 
