@@ -14,7 +14,7 @@ public class Classrooms {
         this.floor = floor;
         this.id = id;
         this.seatlimit = Seatlimit;
-        availableHours = new int[23][5];
+        availableHours = new int[22][5];
     }
 
     @Override

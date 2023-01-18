@@ -2,6 +2,7 @@ package Objects;
 
 import Objects.Lesson;
 import java.util.ArrayList;
+import java.util.Random;
 
 
 
@@ -15,13 +16,22 @@ public class Lecturer {
     private String surname;
     private boolean[] avaliableWeekDays ;
     private ArrayList<Lesson> lessons;
+    Random rand = new Random();
     
-    public Lecturer(int id, String Name, String Surname){
+    public Lecturer(int id, String Name, String Surname) throws Exception{
         this.id = id;
         this.name = Name;
         this.surname = Surname;
         this.avaliableWeekDays = new boolean[5];
         this.lessons = new ArrayList<>();
+
+        // Set random free day
+        if(rand.nextInt(10)==0){
+            this.setFreeDay(rand.nextInt(5));
+        }
+        else{
+            this.setAvaliableAllDay();
+        }
     }
 
     public String getName() {
@@ -58,11 +68,19 @@ public class Lecturer {
     *   Set All day as working
     */
     private void setAvaliableAllDay(){
-        for(boolean day : this.avaliableWeekDays){
+        for(int i = 0; i < 5; i++){
+            this.avaliableWeekDays[i] = true;
+        }
+        /*
+        for(boolean day : this.avaliableWeekDays){   //burda çok şey öğrendik!!!!
             day = true;
         }
+        */
     }
-
+    //getter for available week days
+    public boolean[] getAvaliableWeekDays() {
+        return avaliableWeekDays;
+    }
     /**
      *
      * @param lesson

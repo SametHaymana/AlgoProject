@@ -10,7 +10,6 @@ public class Lesson {
     
     private int akts;
     private String LectureName;
-    private int enrollmentCount;
     private String lessonCode;
     private int classYear;
     private String departmentCode;
@@ -68,6 +67,10 @@ public class Lesson {
     
     public void setLecturer(Lecturer lectr) {
         this.lecturer = lectr;
+    }
+    //get lecturer
+    public Lecturer getLecturer() {
+        return this.lecturer;
     }
     
     

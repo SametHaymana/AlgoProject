@@ -10,15 +10,16 @@ import Objects.*;
 import java.util.stream.Collectors;
 
 public class Randomizer {
-    //this number shows how many teachers will set freedays
+    // this number shows how many teachers will set freedays
 
-    private static int lecturersCount = 60;
+    //private static int lecturersCount = 60;
 
     /*
-        This class will create a faculty and fill the faculty with random students, LEssons, Lecturers 
+     * This class will create a faculty and fill the faculty with random students,
+     * LEssons, Lecturers
      */
     public Faculty faculty = new Faculty("Faculty of Engineering");
-    Lesson[][] schedule = new Lesson[23][5];
+
     Classrooms[] rooms = new Classrooms[25];
     Lecturer[] lecturers = new Lecturer[180];
 
@@ -40,6 +41,7 @@ public class Randomizer {
         }
     }
 
+    // this fill create 15 classrooms inside rooms array!!
     public Classrooms[] generateClasses() {
         int pin = 0;
         char a = 'A';
@@ -55,41 +57,49 @@ public class Randomizer {
     }
 
     // I check room to place lesson
-    public boolean checkRoom(Classrooms room, int d, int h, int akts) {
-        //I initialize the flag because we should know how many hours available
-        //if flag-1 == akts we return true
-        //flag-1 because we assume for 3 akts our lecture time 1 hour so 2 unit
-        int flag = 0;
-        if (h<17) {
-            for (int i = 0; i < akts; i++) {
-            if (room.availableHours[h][d] == 0) {
-                flag++;
-            }
-            h++;
-        }
-        if (flag == akts) {
-            return true;
-        } else {
+    public boolean checkRoom(Classrooms room, int d, int h, int akts, Lesson lesson) {
+        Lecturer instructer = lesson.getLecturer();
+        if(instructer.getAvaliableWeekDays()[d] == false){
             return false;
         }
+
+        // I initialize the flag because we should know how many hours available
+        // if flag-1 == akts we return true
+        // flag-1 because we assume for 3 akts our lecture time 1 hour so 2 unit
+        int flag = 0;
+        if (h < 17) {
+            for (int i = 0; i < akts; i++) {
+                if (room.availableHours[h][d] == 0) {
+                    flag++;
+                }
+                h++;
+            }
+            if (flag == akts) {
+                return true;
+            } else {
+                return false;
+            }
         }
-        
+
         return false;
     }
 
     private void generateDepertments() throws FileNotFoundException, Exception {
         /*
-            Depertments name is storing in the "Dataset" directory as its name of depertments,
-            for example "Electric Electronic.txt" is the file of the Electric Electronic deperments
-            lessons store in this file. For this design we will use the name of files as depertment anme and 
-            add lectures for this depertments.
-            
+         * Depertments name is storing in the "Dataset" directory as its name of
+         * depertments,
+         * for example "Electric Electronic.txt" is the file of the Electric Electronic
+         * deperments
+         * lessons store in this file. For this design we will use the name of files as
+         * depertment anme and
+         * add lectures for this depertments.
+         * 
          */
 
         // List files in the directory of dataset
         String[] depertmentFiles = new File("dataSet").list();
 
-        // Create depertments and lecturess 
+        // Create depertments and lecturess
         for (int i = 0; i < depertmentFiles.length; i++) {
 
             // For name of the depertment remove extesion of file name
@@ -115,11 +125,11 @@ public class Randomizer {
 
                 // Add random information to lessons
                 // Akts will be betwen 3 - 5
-                int akts = 3 + rand.nextInt(2);
+                int akts = 3 + rand.nextInt(3);
                 String name = scanner.nextLine();
 
                 // Creating classN is the year of lecture it will be 1-4
-                int classN = rand.nextInt(3) + 1;   // it is betwen 0-3 so add 1 
+                int classN = rand.nextInt(3) + 1; // it is betwen 0-3 so add 1
 
                 // Lesson code is simple code that will assignet for each unique lessons
                 String lesssonCode = depertmentCode + classN + "0" + j++;
@@ -127,7 +137,8 @@ public class Randomizer {
                 // Randomly make it mondotary of not
                 Boolean isMandotary = rand.nextInt(99999) % 2 == 0 ? Boolean.TRUE : Boolean.FALSE;
 
-                dep.addLesson(new Lesson(akts, name, isMandotary, lesssonCode, classN, depertmentCode, null, null, null));
+                dep.addLesson(
+                        new Lesson(akts, name, isMandotary, lesssonCode, classN, depertmentCode, null, null, null));
 
                 j++;
             }
@@ -164,10 +175,10 @@ public class Randomizer {
 
     public void generateRandomLecturers() throws FileNotFoundException, Exception {
         int id = 0;
-        //I read from names.txt
+        // I read from names.txt
         ArrayList<String> lecturerName = this.readLines(new File("names.txt"));
         Random rand = new Random();
-        //We create numberofDepartments * lessonNumber lecturer
+        // We create numberofDepartments * lessonNumber lecturer
         for (Department dp : faculty.getDepartments()) {
             for (int i = 0; i < dp.getLessons().size(); i++) {
                 id++;
@@ -181,8 +192,9 @@ public class Randomizer {
         }
 
     }
-
-    //we can initialize with give lecturer abject and days or we can use generateLecturerFreeDaysRandomly() function to generate randomly
+    /*
+    // we can initialize with give lecturer abject and days or we can use
+    // generateLecturerFreeDaysRandomly() function to generate randomly
     public void generateLecturerFreeDays(Lecturer lecturer, int day) throws Exception {
         lecturer.setFreeDay(day);
     }
@@ -196,10 +208,10 @@ public class Randomizer {
         }
 
     }
-
+    */
     private void randomizeStudents() throws FileNotFoundException {
         /*
-            This function fill created depertments with random sutudents
+         * This function fill created depertments with random sutudents
          */
 
         // Load names ass array for accesing random names in instend time
@@ -240,11 +252,11 @@ public class Randomizer {
 
     }
 
-    public void lessonSchedule(Lesson lesson,Classrooms room) {
+    public void lessonSchedule(Lesson lesson) {
         /*
-        3 AKTS = 1 Hour
-        4 AKTS = 1.5 Hour
-        5 AKTS = 2 Hour
+         * 3 AKTS = 1 Hour
+         * 4 AKTS = 1.5 Hour
+         * 5 AKTS = 2 Hour
          */
         String lessonDay = "";
         int hour = 0;
@@ -275,62 +287,56 @@ public class Randomizer {
                     } else {
                         minute = "30";
                     }
+
                     hour = 8 + (hours / 2);
                     // int roomIndex = checkRoom(day, hours, lesson.getAkts());
-                    //lesson.roomCode = rooms[roomIndex].id;
-                    if (checkRoom(room, day, hours, lesson.getAkts())) {
+                    // lesson.roomCode = rooms[roomIndex].id;
+                    if(i==5){
+                        int bok=0; // XD
+                    }
+                    if (checkRoom(rooms[i], day, hours, lesson.getAkts(),lesson)) {
 
-                        if (lesson.getAkts() == 3 && schedule[hours][day] == null && schedule[hours + 1][day] == null) {
-                            rooms[i].availableHours[hours][day]=1;
-                            rooms[i].availableHours[hours+1][day]=1;
-                            schedule[hours][day] = lesson;
-                            schedule[hours + 1][day] = lesson;
-                            //  schedule[hours + 2][day] = lesson;
-                            lesson.setRoomCode(room.id);
+                        if (lesson.getAkts() == 3 && rooms[i].availableHours[hours][day] == 0 && rooms[i].availableHours[hours + 1][day] == 0) {
+                            rooms[i].availableHours[hours][day] = 1;
+                            rooms[i].availableHours[hours + 1][day] = 1;
+                            // schedule[hours + 2][day] = lesson;
+                            lesson.setRoomCode(rooms[i].id);
                             lesson.setDate(lessonDay + "   " + hour + ":" + minute);
                             System.out.println(lessonDay + "   " + hour + ":" + minute);
-                            System.out.println(schedule[hours][day]);
-                            System.out.println(schedule[hours + 1][day]);
+                            System.out.println(lesson.toString());
                             return;
-                        } else if (lesson.getAkts() == 4 && schedule[hours][day] == null && schedule[hours + 2][day] == null) {
-                            rooms[i].availableHours[hours][day]=1;
-                            rooms[i].availableHours[hours+1][day]=1;
-                            rooms[i].availableHours[hours+2][day]=1;
-                            
-                            schedule[hours][day] = lesson;
-                            schedule[hours + 1][day] = lesson;
-                            schedule[hours + 2][day] = lesson;
-                            //             schedule[hours + 3][day] = lesson;
+                        } else if (lesson.getAkts() == 4 && rooms[i].availableHours[hours][day] == 0
+                                && rooms[i].availableHours[hours + 2][day] == 0) {
+                            rooms[i].availableHours[hours][day] = 1;
+                            rooms[i].availableHours[hours + 1][day] = 1;
+                            rooms[i].availableHours[hours + 2][day] = 1;
+                            // schedule[hours + 3][day] = lesson;
                             System.out.println(lessonDay + "   " + hour + ":" + minute);
-                            lesson.setRoomCode(room.id);
+                            System.out.println(lesson.toString());
+                            lesson.setRoomCode(rooms[i].id);
                             lesson.setDate(lessonDay + "   " + hour + ":" + minute);
-                            System.out.println(schedule[hours][day]);
-                            System.out.println(schedule[hours + 2][day]);
                             return;
-                        } else if (lesson.getAkts() == 5 && schedule[hours][day] == null && schedule[hours + 3][day] == null) {
-                            rooms[i].availableHours[hours][day]=1;
-                            rooms[i].availableHours[hours+1][day]=1;
-                            rooms[i].availableHours[hours+2][day]=1;
-                            rooms[i].availableHours[hours+3][day]=1;
-                            schedule[hours][day] = lesson;
-                            schedule[hours + 1][day] = lesson;
-                            schedule[hours + 2][day] = lesson;
-                            schedule[hours + 3][day] = lesson;
-//                    schedule[hours + 4][day] = lesson;
+                        } else if (lesson.getAkts() == 5 && rooms[i].availableHours[hours][day] == 0
+                                && rooms[i].availableHours[hours + 3][day] == 0) {
+                            rooms[i].availableHours[hours][day] = 1;
+                            rooms[i].availableHours[hours + 1][day] = 1;
+                            rooms[i].availableHours[hours + 2][day] = 1;
+                            rooms[i].availableHours[hours + 3][day] = 1;
+                            // schedule[hours + 4][day] = lesson;
+                            //writing information about lesson and its time
                             System.out.println(lessonDay + "   " + hour + ":" + minute);
-                            lesson.setRoomCode(room.id);
+                            System.out.println(lesson.toString());
+                            lesson.setRoomCode(rooms[i].id);
                             lesson.setDate(lessonDay + "   " + hour + ":" + minute);
-                            System.out.println(schedule[hours][day]);
-                            System.out.println(schedule[hours + 3][day]);
                             return;
                         }
-                        
+
                     }
 
                 }
             }
-            return;
         }
+        return;
     }
 
 }
