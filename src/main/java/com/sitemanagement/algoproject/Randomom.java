@@ -28,8 +28,8 @@ public class Randomom {
     public void generateClasses() {
         int pin = 0;
         char a = 'A';
-        for (int i = 0; i < 5; i++) {
-            for (int j = pin; j < pin + 5; j++) {
+        for (int i = 0; i < 40; i++) {
+            for (int j = pin; j < pin + 7; j++) {
                 rooms[j] = new Classrooms(a, j, a + String.valueOf(j), 50);
                 System.out.println(rooms[j]);
             }
@@ -37,11 +37,9 @@ public class Randomom {
             a++;
         }
     }
-    Lesson[][] schedule = new Lesson[25][5];
     public MyFaculty faculty = new MyFaculty("Faculty of Engineering");
-    int[][][] roomAvailability = new int[5][25][9];
-    Classrooms[] rooms = new Classrooms[25];
-    int[][] scheduleCheck = new int[25][5];
+    int[][][] roomAvailability = new int[5][280][100];
+    Classrooms[] rooms = new Classrooms[280];
 
     public void generateDepertments() throws FileNotFoundException, Exception {
 
@@ -94,7 +92,7 @@ public class Randomom {
                 Boolean isMandotary = rand.nextInt(99999) % 2 == 0 ? Boolean.TRUE : Boolean.FALSE;
                 RoomResponse room = getRoom(akts);
                 DepLesson lesson = new DepLesson(akts, name, isMandotary, lesssonCode, classN, depertmentCode, generateLecturer(), room.roomCode, room.start + 8, room.end + 8, room.day);
-                dep.addLesson(lesson);
+                dep.addLesson(lesson);  
                 j++;
             }
             
@@ -148,15 +146,21 @@ public class Randomom {
 
     public RoomResponse getRoom(int akts) {
         for (int i = 0; i < 5; i++) {
-            for (int r = 0; r < 15; r++) {
-                for (int h = 0; h < 5 ; h++) {
+            for (int r = 0; r < 50; r++) {
+                for (int h = 0; h < 8 ; h++) {
                     if (roomAvailability[i][r][h] == 0) {
-                        if (akts >= 5 - h) {
-                            for (int f = h; f < h + akts; f++) {
+                            boolean flag = false;
+                            for(int x = h; x<h+akts; x++) {
+                                if(roomAvailability[i][r][x] == 1) {
+                                    flag = !flag;
+                                    break;
+                                }
+                            }
+                            if(flag) break;
+                            for (int f = h; f < h + (akts-2); f++) {
                                 roomAvailability[i][r][f] = 1;
                             }
                             return new RoomResponse(getDay(i),h, h + (akts / 2), rooms[r].id);
-                        }
                     }
                 }
             }
