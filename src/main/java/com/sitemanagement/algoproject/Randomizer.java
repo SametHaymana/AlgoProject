@@ -28,17 +28,6 @@ public class Randomizer {
     public Randomizer() throws FileNotFoundException, Exception {
         this.generateDepertments();
         this.randomizeStudents();
-        this.generateClasses();
-
-    }
-
-    private void generateExtraClasses() {
-        Random rand = new Random();
-        char b = 'B';
-
-        for (int i = 15; i < 20; i++) {
-            rooms[i] = new Classrooms(b, i, b + String.valueOf(i), 50);
-        }
     }
 
     // this fill create 15 classrooms inside rooms array!!
@@ -192,23 +181,7 @@ public class Randomizer {
         }
 
     }
-    /*
-    // we can initialize with give lecturer abject and days or we can use
-    // generateLecturerFreeDaysRandomly() function to generate randomly
-    public void generateLecturerFreeDays(Lecturer lecturer, int day) throws Exception {
-        lecturer.setFreeDay(day);
-    }
-
-    public void generateLecturerFreeDaysRandomly() throws Exception {
-        Random rand = new Random();
-        int day = rand.nextInt(5);
-        for (int i = 0; i < lecturersCount; i++) {
-            int lecurersIndex = rand.nextInt(180);
-            lecturers[lecurersIndex].setFreeDay(day);
-        }
-
-    }
-    */
+    
     private void randomizeStudents() throws FileNotFoundException {
         /*
          * This function fill created depertments with random sutudents
